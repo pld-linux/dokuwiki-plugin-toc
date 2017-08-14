@@ -1,4 +1,6 @@
 %define		plugin		toc
+%define		php_min_version 5.3.0
+%include	/usr/lib/rpm/macros.php
 Summary:	DokuWiki TOC Action plugin
 Summary(pl.UTF-8):	Wtyczka TOC Actiona dla DokuWiki
 Name:		dokuwiki-plugin-%{plugin}
@@ -6,11 +8,12 @@ Version:	20090413
 Release:	1
 License:	GPL v2
 Group:		Applications/WWW
-Source0:	http://www.nung.edu.ua/dokuwiki/toc.tgz
+Source0:	http://projects.andriylesyuk.com/attachments/download/92/toc.tgz
 # Source0-md5:	cd60c970e176372673ca401dde4ec02f
-URL:		http://wiki.splitbrain.org/plugin:toc
+URL:		https://www.dokuwiki.org/plugin:toc
 BuildRequires:	rpmbuild(macros) >= 1.520
-Requires:	dokuwiki >= 20061106
+Requires:	dokuwiki >= 20131208
+Requires:	php(core) >= %{php_min_version}
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -22,7 +25,10 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Dokuwiki pluging which allows to move TOC to the specified place in the page content.
 
 %prep
-%setup -q -n %{plugin}
+%setup -qc
+mv %{plugin}/* .
+
+%build
 version=$(awk -F"'" '/date/{print $4}' action.php)
 if [ "$(echo "$version" | tr -d -)" != %{version} ]; then
 	: %%{version} mismatch
