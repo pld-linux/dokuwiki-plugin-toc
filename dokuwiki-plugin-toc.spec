@@ -1,6 +1,5 @@
 %define		plugin		toc
 %define		php_min_version 5.3.0
-%include	/usr/lib/rpm/macros.php
 Summary:	DokuWiki TOC Action plugin
 Summary(pl.UTF-8):	Wtyczka TOC Actiona dla DokuWiki
 Name:		dokuwiki-plugin-%{plugin}
